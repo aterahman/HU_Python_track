@@ -1,5 +1,5 @@
 #defining a class named StringClass
-class StringClass:
+class StringClass():
 
     #creating a constructor to take input of string
     def __init__(self,str):
@@ -11,9 +11,7 @@ class StringClass:
 
     #method to convert string to list pof characters
     def listchar(self):
-        list=[]
-        list[:0]=self.str
-        print(list)
+        print(list(self.str))
 
 #initializing an object and calling the constructors and methods
 ob= StringClass(input("Please enter the string\n"))
@@ -23,8 +21,11 @@ ob.listchar()
 #Creating a class PairsPossible which inherits from class StringClass
 class PairsPossible(StringClass):
 
-   #method to find adll possible pairs
+   #method to find all possible pairs
     def pairs(self):
-        r = [(a, b) for idx, a in enumerate(list) for b in list[idx + 1:]]
-        print(self.str(r))
+        r = [(a, b) for idx, a in enumerate(list(self.str)) for b in list(self.str)[idx + 1:]]
+        print(r)
+
+ob1= PairsPossible()
+ob1.pairs()
 
