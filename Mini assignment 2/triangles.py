@@ -1,8 +1,8 @@
 import math
 class q2c:
 
-    #printing the first triangle as per the question
-    
+    #printing the first triangle as per the question (scalar triangle)
+
     for i in range(5):
         for j in range(5 - i):
             print('   ', end='')
@@ -13,3 +13,14 @@ class q2c:
             else:
                 print('   ', end='')
         print()
+
+    #printing second pattern as per question (Right angled triangle)
+
+    print("---------------------------------------------------------")
+    for a in range(0,5):
+        for b in range(0,5):
+            if a==0 or b==4 or a==b:
+                print(" * ",end='')
+            else:
+                print("   ",end='')
+        print("\n")
