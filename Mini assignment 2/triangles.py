@@ -1,22 +1,15 @@
 import math
 class q2c:
 
-    for i in range(1,6):
-        for j in range(1,10):
-            if(i==1):
-                if(j==5):
-                    print(" * ",end='')
-                else:
-                    print("   ",end='')
+    #printing the first triangle as per the question
+    
+    for i in range(5):
+        for j in range(5 - i):
+            print('   ', end='')
 
+        for j in range(2 * i + 1):
+            if j == 0 or j == 2 * i or i == 5 - 1:
+                print(' * ', end='')
             else:
-                if(j==(5- int(math.pow(2,i-2)))):
-                    print(" * ",end='')
-
-                elif(j== (5+ (math.pow(2,i-2)))):
-                        print(" * ",end='')
-
-                else:
-                    print("   ",end='')
-
+                print('   ', end='')
         print()
