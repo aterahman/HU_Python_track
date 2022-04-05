@@ -2,14 +2,20 @@
 class StringClass:
 
     #creating a constructor to take input of string
-    def __init__(self):
-        self.str = input("Enter the desired string")
+    def __init__(self,str):
+        self.str = str
 
-
+    #method to find length of string
     def length(self):
-        return len()
+        print(len(self.str))
 
+    #method to convert string to list pof characters
+    def listchar(self):
+        list=[]
+        list[:0]=self.str
+        print(list)
 
-ob1 = StringClass();
-ob1.length();
-print(ob1.str)
+#initializing an object and calling the constructors and methods
+ob= StringClass(input("Please enter the string\n"))
+ob.length()
+ob.listchar()
