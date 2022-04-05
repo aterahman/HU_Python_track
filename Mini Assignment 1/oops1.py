@@ -19,3 +19,12 @@ class StringClass:
 ob= StringClass(input("Please enter the string\n"))
 ob.length()
 ob.listchar()
+
+#Creating a class PairsPossible which inherits from class StringClass
+class PairsPossible(StringClass):
+
+   #method to find adll possible pairs
+    def pairs(self):
+        r = [(a, b) for idx, a in enumerate(list) for b in list[idx + 1:]]
+        print(self.str(r))
+
