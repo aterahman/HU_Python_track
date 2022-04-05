@@ -2,8 +2,8 @@
 class StringClass():
 
     #creating a constructor to take input of string
-    def __init__(self,str):
-        self.str = str
+    def __init__(self):
+        self.str = input("Enter desired string\n")
 
     #method to find length of string
     def length(self):
@@ -14,7 +14,7 @@ class StringClass():
         print(list(self.str))
 
 #initializing an object and calling the constructors and methods
-ob= StringClass(input("Please enter the string\n"))
+ob= StringClass()
 ob.length()
 ob.listchar()
 
