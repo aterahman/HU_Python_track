@@ -60,32 +60,66 @@ class bookmyshow:
                              input('Cast '),input('Director '),input('Admin Rating '),
                              input('Language ')])
 
-            # method to add a new movie
 
+
+    #method to edit movie
     def editmovie(self):
 
-        with open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv",
-                  encoding='utf-8-sig') as csv_file:
-            fieldname = ['Title', 'Genre', 'Length', 'Cast', 'Director', 'Admin Rating', 'Language']
-            editor = csv.DictReader(csv_file, delimiter=',')
-            for row in editor:
-                edit = input("What movie do you want to edit?\n")
+        csv_file = open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv",'r',
+                  encoding='utf-8-sig')
+        L=[]
+        editor = csv.DictReader(csv_file, delimiter=',')
+        edit = input("What movie do you want to edit?\n")
+        for row in editor:
+
                 if(row['Title']==edit):
                     field = input("Enter the name of the field"
                                   "'Title', 'Genre', 'Length', 'Cast', 'Director', 'Admin Rating', 'Language'\n")
                     value = row[field]
-                    newvalue = input("Enter new value")
-                    row[field] = row[field].replace(value,newvalue)
+                    newvalue = input("Enter new value\n")
+                L.append(row)
 
+        csv_file.close()
 
+        csv_file =  open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'w+',
+                  newline="",encoding='utf-8-sig')
+        writer = csv.writer(csv_file)
+        writer.writerows(L)
+        csv_file.seek(0)
+        reader  =csv.reader(csv_file)
+        for row in reader:
+                print(row)
+        csv_file.close()
 
 
     #method to delete a movie
     def deletemovie(self):
-        with open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'a',
-                  encoding='utf-8-sig') as csv_file:
-            deleter = csv.reader(csv_file, delimiter=',')
+        csv_file = open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'r',
+                        encoding='utf-8-sig')
+        L = []
+        deleter = csv.reader(csv_file, delimiter=',')
+        delete = input("What movie do you want to edit?\n")
+        found =  False
+        for row in deleter:
 
+            if (row[0] == delete):
+                found = True
+            else:
+                L.append()
+
+        csv_file.close()
+        if(found==True):
+            csv_file = open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'w+',
+                        newline="", encoding='utf-8-sig')
+            writer = csv.writer(csv_file)
+            writer.writerows(L)
+            csv_file.seek(0)
+            reader = csv.reader(csv_file)
+            for row in reader:
+                    print(row)
+            csv_file.close()
+        else:
+            print("Movie title not found")
 
 
     #method to register new user
