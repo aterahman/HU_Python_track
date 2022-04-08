@@ -136,13 +136,15 @@ class bookmyshow:
 
     #method to login as customer
     def userlogin(self):
-        print("\n******Welcome User*******\n1. Book Tickets\n2. Cancel Tickets\n3. Give User Rating\n4. Logout")
+        print("\n******Welcome User*******\n1. Book Tickets\n2. Cancel Tickets\n3. Logout")
         self.userchoice = input("Enter choice: ")
         return self.userchoice
 
 
     #method to book tickets
     def booktickets(self):
+
+        #shows the movies and movie details
         csv_file=  open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'r',
                   encoding='utf-8-sig')
         view = csv.reader(csv_file, delimiter = ',')
@@ -150,6 +152,41 @@ class bookmyshow:
         for row in view:
                 print(row)
 
+        csv_file.close()
+
+        #adds user tickets to cart
+        csv_file = open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\usercart.csv", 'a',
+                   encoding='utf-8-sig')
+        fieldnames = ['Movie','Tickets']
+        writer =  csv.writer(csv_file)
+        writer.writerow([input("Enter Movie Name"),input("Enter number of tickets")])
+
+    #method to cancel tickets from cart
+    def canceltickets(self):
+        csv_file = open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\usercart.csv", 'w+',
+                        encoding='utf-8-sig')
+
+        L = []
+        editor = csv.reader(csv_file, delimiter=',')
+        edit = input("What movie do you want to edit?\n")
+        for row in editor:
+
+            if (row[0] == edit):
+                newtickets = int(input("Enter the number tickets to cancel"))
+                oldtickets = int(row[1])
+                row[1]=str((oldtickets-newtickets))
+            L.append(row)
+        print(L)
+        csv_file.close()
+
+        csv_file = open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'w+',
+                        newline="", encoding='utf-8-sig')
+        writer = csv.writer(csv_file)
+        writer.writerows(L)
+        csv_file.seek(0)
+        reader = csv.reader(csv_file)
+        for row in reader:
+            print(row)
         csv_file.close()
 
 
@@ -185,13 +222,17 @@ if(choice == '1'):
             print("INVALID LOGIN DETAILS RE-ENTER")
         ob.welcomescreen()
 
+        #goes to user login screen
         userchoice = ob.userlogin()
-        if(userchoice=='1'):
-            ob.booktickets()
+        while(userchoice!='3'):
+             if(userchoice=='1'):
+                ob.booktickets()
+             elif(userchoice=='2'):
+                ob.canceltickets()
+             userchoice=ob.userlogin()
+        ob.welcomescreen()
 
-
-
-
+#goes to registration screen
 elif(choice=='2'):
     ob.register()
     ob.welcomescreen()
