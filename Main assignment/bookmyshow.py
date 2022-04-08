@@ -51,7 +51,7 @@ class bookmyshow:
     def addmovie(self):
             print("Enter movie details")
             with open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'a',
-                  encoding='utf-8-sig') as csv_file:
+                  newline="",encoding='utf-8-sig') as csv_file:
                     fieldname = ['Title','Genre','Length','Cast','Director','Admin Rating','Language']
                     writer = csv.writer(csv_file, delimiter=',')
 
@@ -63,13 +63,21 @@ class bookmyshow:
             # method to add a new movie
 
     def editmovie(self):
-        print("What movie do you want to edit?")
-        with open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'r',
+
+        with open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv",
                   encoding='utf-8-sig') as csv_file:
             fieldname = ['Title', 'Genre', 'Length', 'Cast', 'Director', 'Admin Rating', 'Language']
-            editor = csv.reader(csv_file, delimiter=',')
+            editor = csv.DictReader(csv_file, delimiter=',')
             for row in editor:
-                print(row)
+                edit = input("What movie do you want to edit?\n")
+                if(row['Title']==edit):
+                    field = input("Enter the name of the field"
+                                  "'Title', 'Genre', 'Length', 'Cast', 'Director', 'Admin Rating', 'Language'\n")
+                    value = row[field]
+                    newvalue = input("Enter new value")
+                    row[field] = row[field].replace(value,newvalue)
+
+
 
 
     #method to delete a movie
@@ -86,7 +94,7 @@ class bookmyshow:
              newline='', encoding='utf-8-sig') as csv_file:
             fieldname = ['Username','Password']
             writer = csv.DictWriter(csv_file, delimiter=',', fieldnames=fieldname)
-
+            writer.writeheader()
             writer.writerow({'Username':input("Enter New Username\n"),
                              'Password':input("Enter New Password\n")})
 
@@ -95,13 +103,14 @@ class bookmyshow:
     def userlogin(self):
         print("\n******Welcome User*******\n1. Book Tickets\n2. Cancel Tickets\n3. Give User Rating\n4. Logout")
         self.userchoice = input("Enter choice: ")
+        return self.userchoice
 
 
     #method to book tickets
     def booktickets(self):
         with open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'r',
                   encoding='utf-8-sig') as csv_file:
-            view = csv.reader(csv_file, delimiter = ',')
+            view = csv.DictReader(csv_file, delimiter = ',')
 
             for row in view:
                 print(row)
@@ -130,15 +139,19 @@ if(choice == '1'):
                 ob.editmovie()
             elif(adminchoice=='3'):
                 ob.deletemovie()
-            elif(adminchoice=='4'):
-                ob.welcomescreen()
-            adminchoice = ob.adminloginscreen()
 
+            adminchoice = ob.adminloginscreen()
+        ob.loginscreen()
 
     else:
         while(ob.loginchecker(username,password) != (True, True)):
             print("INVALID LOGIN DETAILS RE-ENTER")
-            ob.loginscreen()
+            ob.welcomescreen()
+
+        userchoice = ob.userlogin()
+        if(userchoice=='1'):
+            ob.booktickets()
+
 
 
 
@@ -148,3 +161,6 @@ elif(choice=='2'):
 
 elif(choice=='3'):
     SystemExit
+
+else:
+    print("Retry")
