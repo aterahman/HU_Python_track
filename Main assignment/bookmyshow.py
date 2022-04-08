@@ -68,17 +68,19 @@ class bookmyshow:
         csv_file = open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv",'r',
                   encoding='utf-8-sig')
         L=[]
-        editor = csv.DictReader(csv_file, delimiter=',')
+        editor = csv.reader(csv_file, delimiter=',')
         edit = input("What movie do you want to edit?\n")
         for row in editor:
 
-                if(row['Title']==edit):
-                    field = input("Enter the name of the field"
-                                  "'Title', 'Genre', 'Length', 'Cast', 'Director', 'Admin Rating', 'Language'\n")
-                    value = row[field]
-                    newvalue = input("Enter new value\n")
-                L.append(row)
+                if(row[0]==edit):
+                    field = input("Enter the number next to the field"
+                                  "'Title'-0, 'Genre'-1, 'Length'-2, 'Cast'-3, 'Director'-4, 'Admin Rating'-5, 'Language'-6\n")
 
+                    field=int(field)
+                    newvalue = input("Enter new value\n")
+                    row[field]=newvalue
+                L.append(row)
+        print(L)
         csv_file.close()
 
         csv_file =  open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'w+',
@@ -98,7 +100,7 @@ class bookmyshow:
                         encoding='utf-8-sig')
         L = []
         deleter = csv.reader(csv_file, delimiter=',')
-        delete = input("What movie do you want to edit?\n")
+        delete = input("What movie do you want to Delete?\n")
         found =  False
         for row in deleter:
 
@@ -180,7 +182,7 @@ if(choice == '1'):
     else:
         while(ob.loginchecker(username,password) != (True, True)):
             print("INVALID LOGIN DETAILS RE-ENTER")
-            ob.welcomescreen()
+        ob.welcomescreen()
 
         userchoice = ob.userlogin()
         if(userchoice=='1'):
