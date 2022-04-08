@@ -103,11 +103,10 @@ class bookmyshow:
         delete = input("What movie do you want to Delete?\n")
         found =  False
         for row in deleter:
-
             if (row[0] == delete):
                 found = True
             else:
-                L.append()
+                L.append(row)
 
         csv_file.close()
         if(found==True):
@@ -144,12 +143,14 @@ class bookmyshow:
 
     #method to book tickets
     def booktickets(self):
-        with open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'r',
-                  encoding='utf-8-sig') as csv_file:
-            view = csv.DictReader(csv_file, delimiter = ',')
+        csv_file=  open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'r',
+                  encoding='utf-8-sig')
+        view = csv.reader(csv_file, delimiter = ',')
 
-            for row in view:
+        for row in view:
                 print(row)
+
+        csv_file.close()
 
 
 ob = bookmyshow()
