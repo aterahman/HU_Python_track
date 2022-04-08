@@ -22,27 +22,34 @@ class bookmyshow:
         return self.username, self.password
 
     #opens the csv file containing the user login details
-    def loginchecker(self,username,password):
+    def loginchecker(self, username, password):
+        usnverify = False
+        pwdverify = False
         with open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\userdetails.csv",
               encoding='utf-8-sig') as csv_file:
                 csvreader = csv.DictReader(csv_file, delimiter=',')
                 line_count = 0
                 for row in csvreader:
-                      for r in row["Username"]:
-                          if (r==username):
-                              return true
+                    if (row['Username']==username):
+                        usnverify= True
 
+                    if (row['Password']==password):
+                        pwdverify=True
+
+
+        return usnverify,pwdverify
 
 
     #method to show admin login screen
     def adminloginscreen(self):
-        print("******Welcome Admin*******\n1. Add New Movie Info\n2. Edit Movie Info\n3. Delete Movies\n4. Logout")
+        print("\n******Welcome Admin*******\n1. Add New Movie Info\n2. Edit Movie Info\n3. Delete Movies\n4. Logout")
         self.choice = input("Enter your choice")
+
 
     #method to add a new movie
     def addmovie(self):
             print("Enter movie details")
-            with open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'w',
+            with open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'a',
                   encoding='utf-8-sig') as csv_file:
                     fieldname = ['Title','Genre','Length','Cast','Director','Admin Rating','Language']
                     writer = csv.DictWriter(csv_file, delimiter=',' ,fieldnames=fieldname)
@@ -73,13 +80,19 @@ choice = ob.userinput()
 if(choice == '1'):
 
     #stores the entered username for verification
-    username = ob.loginscreen()[0]
-
-    #stores the entered password for verification
-    password = ob.loginscreen()[1]
+    loginlist = ob.loginscreen()
+    username = loginlist[0]
+    password = loginlist[1]
 
     #verifies if the user has logged in as admin
     if(username=='admin' and password=='password'):
         ob.adminloginscreen()
     else:
-        ob.loginchecker()
+        while(ob.loginchecker(username,password) != (True, True)):
+            print("INVALID LOGIN DETAILS RE-ENTER")
+            ob.loginscreen()
+
+
+elif(choice=='2'):
+    ob.register()
+    ob.welcomescreen()
