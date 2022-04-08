@@ -157,7 +157,6 @@ class bookmyshow:
         #adds user tickets to cart
         csv_file = open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\usercart.csv", 'a',
                    encoding='utf-8-sig')
-        fieldnames = ['Movie','Tickets']
         writer =  csv.writer(csv_file)
         writer.writerow([input("Enter Movie Name"),input("Enter number of tickets")])
 
@@ -168,7 +167,7 @@ class bookmyshow:
 
         L = []
         editor = csv.reader(csv_file, delimiter=',')
-        edit = input("What movie do you want to edit?\n")
+        edit = input("What movie do you want to cancel?\n")
         for row in editor:
 
             if (row[0] == edit):
@@ -179,7 +178,7 @@ class bookmyshow:
         print(L)
         csv_file.close()
 
-        csv_file = open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'w+',
+        csv_file = open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\usercart.csv", 'w+',
                         newline="", encoding='utf-8-sig')
         writer = csv.writer(csv_file)
         writer.writerows(L)
@@ -215,7 +214,7 @@ if(choice == '1'):
                 ob.deletemovie()
 
             adminchoice = ob.adminloginscreen()
-        ob.loginscreen()
+        print("Restart program")
 
     else:
         while(ob.loginchecker(username,password) != (True, True)):
