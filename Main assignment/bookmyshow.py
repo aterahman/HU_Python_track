@@ -43,7 +43,8 @@ class bookmyshow:
     #method to show admin login screen
     def adminloginscreen(self):
         print("\n******Welcome Admin*******\n1. Add New Movie Info\n2. Edit Movie Info\n3. Delete Movies\n4. Logout")
-        self.choice = input("Enter your choice")
+        self.adminchoice = input("Enter your choice: ")
+        return self.adminchoice
 
 
     #method to add a new movie
@@ -52,12 +53,30 @@ class bookmyshow:
             with open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'a',
                   encoding='utf-8-sig') as csv_file:
                     fieldname = ['Title','Genre','Length','Cast','Director','Admin Rating','Language']
-                    writer = csv.DictWriter(csv_file, delimiter=',' ,fieldnames=fieldname)
+                    writer = csv.writer(csv_file, delimiter=',')
 
-                    writer.writeheader()
-                    writer.writerow({'Title':input('Title '),'Genre':input('Genre '),'Length':input('Length '),
-                             'Cast':input('Cast '),'Director':input('Director '),'Admin Rating':input('Admin Rating '),
-                             'Language':input('Language ')})
+
+                    writer.writerow([input('Title '),input('Genre '),input('Length '),
+                             input('Cast '),input('Director '),input('Admin Rating '),
+                             input('Language ')])
+
+            # method to add a new movie
+
+    def editmovie(self):
+        print("What movie do you want to edit?")
+        with open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'r',
+                  encoding='utf-8-sig') as csv_file:
+            fieldname = ['Title', 'Genre', 'Length', 'Cast', 'Director', 'Admin Rating', 'Language']
+            editor = csv.reader(csv_file, delimiter=',')
+            for row in editor:
+                print(row)
+
+
+    #method to delete a movie
+    def deletemovie(self):
+        with open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'a',
+                  encoding='utf-8-sig') as csv_file:
+            deleter = csv.reader(csv_file, delimiter=',')
 
 
 
@@ -70,6 +89,22 @@ class bookmyshow:
 
             writer.writerow({'Username':input("Enter New Username\n"),
                              'Password':input("Enter New Password\n")})
+
+
+    #method to login as customer
+    def userlogin(self):
+        print("\n******Welcome User*******\n1. Book Tickets\n2. Cancel Tickets\n3. Give User Rating\n4. Logout")
+        self.userchoice = input("Enter choice: ")
+
+
+    #method to book tickets
+    def booktickets(self):
+        with open("C:\\Users\\aterahman\\PycharmProjects\\HU_Python_Track\\Main assignment\\movies.csv", 'r',
+                  encoding='utf-8-sig') as csv_file:
+            view = csv.reader(csv_file, delimiter = ',')
+
+            for row in view:
+                print(row)
 
 
 ob = bookmyshow()
@@ -86,13 +121,30 @@ if(choice == '1'):
 
     #verifies if the user has logged in as admin
     if(username=='admin' and password=='password'):
-        ob.adminloginscreen()
+
+        adminchoice = ob.adminloginscreen()
+        while (adminchoice != '4'):
+            if(adminchoice=='1'):
+                ob.addmovie()
+            elif(adminchoice=='2'):
+                ob.editmovie()
+            elif(adminchoice=='3'):
+                ob.deletemovie()
+            elif(adminchoice=='4'):
+                ob.welcomescreen()
+            adminchoice = ob.adminloginscreen()
+
+
     else:
         while(ob.loginchecker(username,password) != (True, True)):
             print("INVALID LOGIN DETAILS RE-ENTER")
             ob.loginscreen()
 
 
+
 elif(choice=='2'):
     ob.register()
     ob.welcomescreen()
+
+elif(choice=='3'):
+    SystemExit
